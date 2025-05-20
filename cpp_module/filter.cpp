@@ -1,7 +1,12 @@
 #include <pybind11/pybind11.h>
+#include <vector>
+#include <string>
+#include <pybind11/stl.h>
+#include <algorithm>
 
-int apply_filter_cpp(int x) {
-    return x * 2; // Приклад, замініть на вашу логіку
+std::vector<int> apply_filter_cpp(const std::vector<int>& data, int width, int height, const std::string& filter_name) {
+    std::vector<int> result = data;
+    return result;
 }
 
 PYBIND11_MODULE(filter, m) {
