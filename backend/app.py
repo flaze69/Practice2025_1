@@ -1,3 +1,4 @@
+from cpp_module.filter import apply_filter_cpp
 from fastapi import FastAPI, HTTPException
 from config import ROOM_ID, FILTERS
 from fastapi.middleware.cors import CORSMiddleware
@@ -29,6 +30,10 @@ def get_draw(room_id: str):
 def filter_image(room_id: str, payload: dict):
     if room_id != ROOM_ID:
         raise HTTPException(status_code=404, detail="Room not found")
+
     data = payload.get("image_data")
-    # echo stub
-    return {"image_data": data}
+    width = payload["width"]
+    height = payload["height"]
+    filtered = apply_filter_cpp(data, width, height, payload["filter_name"])
+    
+    return {"image_data": filtered}
