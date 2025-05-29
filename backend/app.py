@@ -31,9 +31,11 @@ def filter_image(room_id: str, payload: dict):
     if room_id != ROOM_ID:
         raise HTTPException(status_code=404, detail="Room not found")
 
-    data = payload.get("image_data")
+    data = payload["image_data"]
     width = payload["width"]
     height = payload["height"]
-    filtered = apply_filter_cpp(data, width, height, payload["filter_name"])
+    filter_name = payload["filter_name"]
     
-    return {"image_data": filtered}
+    result = apply_filter_cpp(data, width, height, filter_name)
+    
+    return {"image_data": result}

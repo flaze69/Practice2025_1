@@ -52,7 +52,13 @@ async function poll(){
 
 async function applyFilter() {
   const { width, height } = canvas;
-  // Отримуємо пікселі з Canvas
+  
+  ctx.save();
+  ctx.globalCompositeOperation = "destination-over";
+  ctx.fillStyle = "#ffffff";
+  ctx.fillRect(0, 0, canvas.width, canvas.height);
+  ctx.restore();
+
   const imgData = ctx.getImageData(0, 0, width, height);
   const dataArray = Array.from(imgData.data);  // Перетворюємо у звичайний масив
 

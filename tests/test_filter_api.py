@@ -5,6 +5,12 @@ from config import ROOM_ID
 client = TestClient(app)
 
 def test_filter_api():
-    payload = {"image_data": [1,2,3], "filter_name": "blur"}
+    payload = {
+        "image_data": [0, 0, 0, 255],  # RGBA
+        "filter_name": "invert",
+        "width": 1,
+        "height": 1
+    }
     res = client.post(f"/filter/{ROOM_ID}", json=payload)
-    assert res.status_code == 200 and res.json()["image_data"] == payload["image_data"]
+    assert res.status_code == 200
+    assert res.json()["image_data"] == [255, 255, 255, 255]
